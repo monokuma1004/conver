@@ -1,0 +1,58 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | foam-extend: Open Source CFD                    |
+|  \\    /   O peration     | Version:     4.0                                |
+|   \\  /    A nd           | Web:         http://www.foam-extend.org         |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      omega;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 -1 0 0 0 0];
+
+internalField   uniform 0.000001;
+
+boundaryField
+{
+    inlet
+    {
+        type            zeroGradient;
+    }
+    topwall
+    {
+        type            compressible::omegaWallFunction;
+        refValue        uniform 0;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        betal           0.075;
+        value           uniform 0.000001;
+    }
+    
+    outlet
+    {
+        type            zeroGradient;
+    }
+    plate
+    {
+        type            zeroGradient;
+    }
+    wall1
+    {
+        type            wedge;
+    }
+    wall2
+    {
+        type            wedge;
+    }
+}
+
+
+// ************************************************************************* //
